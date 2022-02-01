@@ -16,12 +16,10 @@ const Card: React.FC<Props> = ({ imgUrl, size = 'medium' }) => {
   return (
     <MotionBox
       position="relative"
-      overflow="hidden"
       rounded="sm"
       __css={styles}
       whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.9 }}
-      _hover={{ zIndex: 1 }}
+      overflow="hidden"
     >
       <Image
         src={imgUrl}
