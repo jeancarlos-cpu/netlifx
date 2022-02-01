@@ -1,6 +1,10 @@
 import { extendTheme } from '@chakra-ui/react';
+import { Card } from './components/card';
 
 export const theme = extendTheme({
+  components: {
+    Card,
+  },
   fonts: {
     heading: 'roboto slab',
     body: 'roboto slab',
