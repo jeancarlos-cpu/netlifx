@@ -10,7 +10,12 @@ export const theme = extendTheme({
     body: 'roboto slab',
   },
   styles: {
+    css: {},
     global: {
+      '&::-webkit-scrollbar': {
+        width: '0',
+        background: 'transparent',
+      },
       body: {
         bg: 'gray.900',
         color: 'gray.50',
