@@ -17,7 +17,7 @@ export const theme = extendTheme({
         background: 'transparent',
       },
       body: {
-        bg: 'gray.900',
+        bg: '#121212',
         color: 'gray.50',
       },
     },
