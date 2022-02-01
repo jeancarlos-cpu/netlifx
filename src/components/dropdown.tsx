@@ -17,7 +17,7 @@ const Dropdown: React.FC<Props> = ({ isOpen }: { isOpen: boolean }) => {
       width="100px"
       position="absolute"
       left="calc(50% - 50px)"
-      bg="gray.700"
+      bg="#181818"
       p={2}
       marginTop={2}
       _before={{
@@ -29,7 +29,7 @@ const Dropdown: React.FC<Props> = ({ isOpen }: { isOpen: boolean }) => {
         borderLeft: '10px solid transparent',
         borderRight: '10px solid transparent',
         borderBottom: '10px solid',
-        borderBottomColor: 'gray.700',
+        borderBottomColor: '#181818',
       }}
     >
       {isOpen && (
