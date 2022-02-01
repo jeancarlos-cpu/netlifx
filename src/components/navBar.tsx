@@ -1,30 +1,36 @@
-import {
-  Box,
-  Button,
-  Container,
-  Heading,
-  HStack,
-  Link,
-} from '@chakra-ui/react';
+import { Box, Button, Heading, HStack, Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Dropdown from './dropdown';
 import { IoIosArrowDown } from 'react-icons/io';
 
 const NavBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [navBarBgColor, setNavBarBgColor] = useState('');
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+  });
+
+  function handleScroll() {
+    setNavBarBgColor(
+      window.scrollY === 0
+        ? 'linear-gradient(to bottom, black, rgba(0,0,0,0))'
+        : 'rgba(0,0,0,0.8)',
+    );
+  }
 
   return (
-    <Container
-      maxW="container.xl"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      marginY={2}
-      zIndex={1}
+    <HStack
       position="fixed"
+      w="full"
+      justifyContent="space-between"
+      paddingY={3}
+      paddingX={12}
+      zIndex={1}
+      bg={navBarBgColor}
     >
-      <HStack gap={4} flex={1}>
+      <HStack gap={4}>
         <Heading marginRight={4} color="red.600">
           NETFLIX
         </Heading>
@@ -35,7 +41,7 @@ const NavBar = () => {
           <Link>My List</Link>
         </NextLink>
       </HStack>
-      <Box position="relative" marginRight={'100px'}>
+      <Box position="relative">
         <Button
           rightIcon={<IoIosArrowDown />}
           variant="link"
@@ -46,7 +52,7 @@ const NavBar = () => {
         </Button>
         <Dropdown isOpen={isDropdownOpen} />
       </Box>
-    </Container>
+    </HStack>
   );
 };
 
