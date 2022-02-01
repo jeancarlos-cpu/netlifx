@@ -1,15 +1,21 @@
 import { Container, VStack } from '@chakra-ui/react';
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Banner from '../components/banner';
 import CardsSection from '../components/cardsSection';
 import NavBar from '../components/navBar';
+import { fetchByQuery, fetchPopular } from '../lib/videos.reducer';
 
-const Home: NextPage = () => {
-  const videos = Array.from({ length: 10 }).map(() => ({
-    imgUrl: '/static/clifford.webp',
-  }));
+type Props = {
+  [key: string]: { imgUrl: string }[];
+};
 
+const Home: NextPage<Props> = ({
+  disneyVideos,
+  travelVideos,
+  productivityVideos,
+  popularVideos,
+}) => {
   return (
     <>
       <Head>
@@ -23,8 +29,14 @@ const Home: NextPage = () => {
       />
       <Container maxWidth="container.xl" paddingY={8}>
         <VStack spacing={4}>
-          <CardsSection title="Disney" size="large" videos={videos} />
-          <CardsSection title="Productivity" size="medium" videos={videos} />
+          <CardsSection title="Disney" size="large" videos={disneyVideos} />
+          <CardsSection title="Travel" size="small" videos={travelVideos} />
+          <CardsSection
+            title="Productivity"
+            size="medium"
+            videos={productivityVideos}
+          />
+          <CardsSection title="Popular" size="small" videos={popularVideos} />
         </VStack>
       </Container>
     </>
@@ -32,3 +44,19 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const disneyVideos = await fetchByQuery('disney trailer');
+  const travelVideos = await fetchByQuery('travel');
+  const productivityVideos = await fetchByQuery('productivity');
+  const popularVideos = await fetchPopular();
+
+  return {
+    props: {
+      disneyVideos,
+      travelVideos,
+      productivityVideos,
+      popularVideos,
+    },
+  };
+};
