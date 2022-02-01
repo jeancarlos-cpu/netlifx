@@ -2,6 +2,7 @@ import { Container, Heading } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Banner from '../components/banner';
+import NavBar from '../components/navBar';
 
 const Home: NextPage = () => {
   return (
@@ -9,7 +10,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Netflix</title>
       </Head>
-      <Heading>Netflix</Heading>
+      <NavBar />
       <Banner
         title="Clifford, the red dog "
         subTitle="a very red dog"
