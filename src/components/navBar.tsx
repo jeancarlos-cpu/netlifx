@@ -69,7 +69,7 @@ const NavBar = () => {
         >
           {email}
         </Button>
-        <Dropdown isOpen={isDropdownOpen} />
+        <Dropdown isOpen={isDropdownOpen} handleSignOut={handleSignOut} />
       </Box>
     </HStack>
   );

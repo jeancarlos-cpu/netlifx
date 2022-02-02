@@ -4,9 +4,10 @@ import React from 'react';
 
 type Props = {
   isOpen: boolean;
+  handleSignOut: () => void;
 };
 
-const Dropdown: React.FC<Props> = ({ isOpen }: { isOpen: boolean }) => {
+const Dropdown: React.FC<Props> = ({ isOpen, handleSignOut }) => {
   if (!isOpen) {
     return <VStack display="none" />;
   }
@@ -34,7 +35,7 @@ const Dropdown: React.FC<Props> = ({ isOpen }: { isOpen: boolean }) => {
     >
       {isOpen && (
         <NextLink href="/login" passHref>
-          <Link>Sign out</Link>
+          <Link onClick={handleSignOut}>Sign out</Link>
         </NextLink>
       )}
     </VStack>
