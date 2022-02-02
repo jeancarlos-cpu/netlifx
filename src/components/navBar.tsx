@@ -13,8 +13,12 @@ const NavBar = () => {
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     async function getEmail() {
-      const response = await magic?.user?.getMetadata();
-      setEmail(response?.email || 'Guest');
+      try {
+        const response = await magic?.user?.getMetadata();
+        setEmail(String(response?.email));
+      } catch {
+        setEmail('Guest');
+      }
     }
     try {
       getEmail();
