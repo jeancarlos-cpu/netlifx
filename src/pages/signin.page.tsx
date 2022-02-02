@@ -114,6 +114,7 @@ const SignInPage: NextPage<Props> = () => {
         <FormControl isInvalid={isInvalid}>
           <FormLabel>Email</FormLabel>
           <Input
+            type="email"
             errorBorderColor="yellow.400"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
