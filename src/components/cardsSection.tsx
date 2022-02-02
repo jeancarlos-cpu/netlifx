@@ -2,15 +2,15 @@ import { Heading, HStack, VStack } from '@chakra-ui/react';
 import { FC } from 'react';
 import { CardSize } from '../styles/components/card';
 import Card from './card';
+import type serializeVideosData from '../utils/serializeVideosData';
+import Link from 'next/link';
 
-type Videos = {
-  imgUrl: string;
-};
+type Videos = ReturnType<typeof serializeVideosData>;
 
 type Props = {
   title: string;
   size?: CardSize;
-  videos?: Videos[];
+  videos?: Videos;
 };
 
 const CardsSection: FC<Props> = ({ title, size = 'medium', videos }) => {
@@ -23,8 +23,10 @@ const CardsSection: FC<Props> = ({ title, size = 'medium', videos }) => {
         overflowX={'scroll'}
         overflowY={'hidden'}
       >
-        {videos?.map(({ imgUrl }, index) => (
-          <Card key={index} size={size} imgUrl={imgUrl} />
+        {videos?.map(({ imgUrl, id }) => (
+          <Link key={id} href={`/videos/${id}`} passHref>
+            <Card id={id} size={size} imgUrl={imgUrl} />
+          </Link>
         ))}
       </HStack>
     </VStack>
