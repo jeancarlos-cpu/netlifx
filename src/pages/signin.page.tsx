@@ -19,7 +19,7 @@ import { magic } from '../lib/magic';
 
 type Props = {};
 
-const SignIn: NextPage<Props> = () => {
+const SignInPage: NextPage<Props> = () => {
   const router = useRouter();
   const [isInvalid, setIsInvalid] = useState(false);
   const [email, setEmail] = useState('');
@@ -144,4 +144,4 @@ const SignIn: NextPage<Props> = () => {
   );
 };
 
-export default SignIn;
+export default SignInPage;
