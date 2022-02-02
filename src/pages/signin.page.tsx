@@ -45,13 +45,12 @@ const SignIn: NextPage<Props> = () => {
         setIsInvalid(true);
         return;
       }
-      if (magic) {
-        const didToken = await magic.auth.loginWithMagicLink({
-          email,
-        });
-        if (didToken) {
-          router.push('/');
-        }
+      const didToken = await magic?.auth.loginWithMagicLink({
+        email,
+      });
+
+      if (didToken) {
+        router.push('/');
       }
     } catch {
       setIsLoading(false);

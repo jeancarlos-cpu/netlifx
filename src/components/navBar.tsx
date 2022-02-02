@@ -13,10 +13,8 @@ const NavBar = () => {
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     async function getEmail() {
-      if (magic) {
-        const { email } = await magic.user.getMetadata();
-        setEmail(email || 'Guest');
-      }
+      const response = await magic?.user?.getMetadata();
+      setEmail(response?.email || 'Guest');
     }
     try {
       getEmail();
@@ -33,6 +31,12 @@ const NavBar = () => {
         ? 'linear-gradient(to bottom, black, rgba(0,0,0,0))'
         : 'rgba(0,0,0,0.8)',
     );
+  }
+
+  async function handleSignOut() {
+    try {
+      await magic?.user?.logout();
+    } catch {}
   }
 
   return (
