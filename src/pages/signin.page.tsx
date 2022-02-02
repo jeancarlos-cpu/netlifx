@@ -12,9 +12,10 @@ import {
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import isEmail from 'isemail';
 import { useRouter } from 'next/router';
+import { magic } from '../lib/magic';
 
 type Props = {};
 
@@ -22,15 +23,39 @@ const SignIn: NextPage<Props> = () => {
   const router = useRouter();
   const [isInvalid, setIsInvalid] = useState(false);
   const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  function handleSubmit(e: FormEvent<HTMLDivElement>) {
-    e.preventDefault();
-    setIsInvalid(false);
-    if (!isEmail.validate(email)) {
-      setIsInvalid(true);
-      return;
+  useEffect(() => {
+    function handleComplete() {
+      setIsLoading(false);
     }
-    router.push('/');
+
+    router.events.on('routeChangeComplete', handleComplete);
+    return () => {
+      router.events.off('routeChangeComplete', handleComplete);
+    };
+  }, [router.events]);
+
+  async function handleSubmit(e: FormEvent<HTMLDivElement>) {
+    try {
+      e.preventDefault();
+      setIsInvalid(false);
+      setIsLoading(true);
+      if (!isEmail.validate(email)) {
+        setIsInvalid(true);
+        return;
+      }
+      if (magic) {
+        const didToken = await magic.auth.loginWithMagicLink({
+          email,
+        });
+        if (didToken) {
+          router.push('/');
+        }
+      }
+    } catch {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -106,6 +131,7 @@ const SignIn: NextPage<Props> = () => {
           </FormErrorMessage>
         </FormControl>
         <Button
+          isLoading={isLoading}
           type="submit"
           size="lg"
           colorScheme="red"
