@@ -5,9 +5,11 @@ import Banner from '../components/banner';
 import CardsSection from '../components/cardsSection';
 import NavBar from '../components/navBar';
 import { fetchByQuery, fetchPopular } from '../lib/videos.reducer';
+import serializeVideosData from '../utils/serializeVideosData';
+type Videos = ReturnType<typeof serializeVideosData>;
 
 type Props = {
-  [key: string]: { imgUrl: string }[];
+  [key: string]: Videos;
 };
 
 const Home: NextPage<Props> = ({
@@ -31,11 +33,7 @@ const Home: NextPage<Props> = ({
         <VStack spacing={4}>
           <CardsSection title="Disney" size="large" videos={disneyVideos} />
           <CardsSection title="Travel" size="small" videos={travelVideos} />
-          <CardsSection
-            title="Productivity"
-            size="medium"
-            videos={productivityVideos}
-          />
+          <CardsSection title="Productivity" videos={productivityVideos} />
           <CardsSection title="Popular" size="small" videos={popularVideos} />
         </VStack>
       </Container>
