@@ -1,8 +1,6 @@
 declare type VideosData = {
   items: {
-    id: {
-      videoId: string;
-    };
+    id: { videoId: string; kind: string } & string;
     snippet: {
       publishedAt: string;
       channelTitle: string;

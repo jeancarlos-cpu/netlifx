@@ -4,7 +4,7 @@ import fakeData from '../../videos.dev.json';
 
 export default async function fetchVideos(params: string) {
   if (process.env.NEXT_PUBLIC_ENV === 'development') {
-    return serializeVideosData(fakeData);
+    return serializeVideosData(fakeData as any);
   }
   try {
     const ytApiKey = process.env.YOUTUBE_API_KEY;
