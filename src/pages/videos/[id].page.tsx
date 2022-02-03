@@ -1,5 +1,6 @@
 import { Heading, HStack, Text, VStack, chakra } from '@chakra-ui/react';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Head from 'next/head';
 import { FC } from 'react';
 import NavBar from '../../components/navBar';
 import {
@@ -18,6 +19,9 @@ type Props = {
 const VideoPage: FC<Props> = ({ video }) => {
   return (
     <>
+      <Head>
+        <title>{video?.title}</title>
+      </Head>
       <NavBar />
       <VStack maxW="container.md" height="100vh" mx="auto" py="4">
         <VStack pt="20" w="full">
@@ -25,27 +29,27 @@ const VideoPage: FC<Props> = ({ video }) => {
             id="player"
             width="100%"
             height="360"
-            src={`http://www.youtube.com/embed/${video.id}?enablejsapi=1&origin=http://example.com`}
+            src={`http://www.youtube.com/embed/${video?.id}?enablejsapi=1&origin=http://example.com`}
             frameBorder="0"
           />
         </VStack>
         <HStack overflow="scroll" align="start" pt={6} spacing={6}>
           <VStack align="start" flexBasis="75%">
             <Text color="gray.400">
-              {formatDateDistance(video.publishedAt)}
+              {formatDateDistance(video?.publishedAt)}
             </Text>
-            <Heading>{video.title}</Heading>
-            <Text color="gray.300">{video.description}</Text>
+            <Heading>{video?.title}</Heading>
+            <Text color="gray.300">{video?.description}</Text>
           </VStack>
           <VStack align="start" flexBasis="25%" spacing={6}>
             <Text fontSize="lg" color="gray.400">
               Channel:
-              <chakra.span color="white">{` ${video.channelTitle}`}</chakra.span>
+              <chakra.span color="white">{` ${video?.channelTitle}`}</chakra.span>
             </Text>
             <Text fontSize="lg" color="gray.400">
               Views:
               <chakra.span color="white">{` ${formatNumber(
-                Number(video.viewCount),
+                Number(video?.viewCount),
               )}`}</chakra.span>
             </Text>
           </VStack>
@@ -64,7 +68,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   ]);
 
   const paths = videos.flat().map((video) => ({ params: { id: video?.id } }));
-
+  console.log(paths);
   return { paths, fallback: true };
 };
 
