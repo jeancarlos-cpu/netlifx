@@ -5,6 +5,7 @@ declare type VideosData = {
     };
     snippet: {
       publishedAt: string;
+      channelTitle: string;
       title: string;
       description: string;
       thumbnails: {
@@ -12,6 +13,9 @@ declare type VideosData = {
           url: string;
         };
       };
+    };
+    statistics?: {
+      viewCount: string;
     };
   }[];
 };

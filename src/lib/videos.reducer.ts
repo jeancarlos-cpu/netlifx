@@ -1,6 +1,7 @@
 import fetchVideos from './fetchVideos';
 
 const Types = {
+  BY_ID: 'BY_ID',
   BY_QUERY: 'BY_QUERY',
   POPULAR_VIDEOS: 'POPULAR_VIDEOS',
 };
@@ -10,8 +11,14 @@ type Action = {
   payload?: string;
 };
 
-function reducer(action: Action) {
+async function reducer(action: Action) {
   switch (action.type) {
+    case Types.BY_ID:
+      return (
+        await fetchVideos(
+          `videos?part=snippet%2CcontentDetails%2Cstatistics&id=${action.payload}`,
+        )
+      )[0];
     case Types.BY_QUERY:
       return fetchVideos(`search?part=snippet&q=${action.payload}}`);
     case Types.POPULAR_VIDEOS:
@@ -21,6 +28,13 @@ function reducer(action: Action) {
     default:
       break;
   }
+}
+
+export function fetchById(id: string) {
+  return reducer({
+    type: 'BY_ID',
+    payload: id,
+  });
 }
 
 export function fetchByQuery(query: string) {
