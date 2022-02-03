@@ -34,7 +34,7 @@ const Dropdown: React.FC<Props> = ({ isOpen, handleSignOut }) => {
       }}
     >
       {isOpen && (
-        <NextLink href="/login" passHref>
+        <NextLink href="/signin" passHref>
           <Link onClick={handleSignOut}>Sign out</Link>
         </NextLink>
       )}
