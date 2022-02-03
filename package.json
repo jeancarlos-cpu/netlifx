@@ -12,6 +12,7 @@
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "axios": "^0.25.0",
+    "date-fns": "^2.28.0",
     "framer-motion": "^5.6.0",
     "isemail": "^3.2.0",
     "magic-sdk": "^8.0.1",
