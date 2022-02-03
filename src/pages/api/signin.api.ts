@@ -45,8 +45,6 @@ export default async function handler(
       .query(QUERY_USER_BY_PK, { issuer })
       .toPromise();
 
-    console.log(data);
-
     if (!data.issuer) {
       await client
         .mutation(CREATE_USER, { input: { issuer, email } })

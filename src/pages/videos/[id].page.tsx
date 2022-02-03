@@ -68,7 +68,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
   ]);
 
   const paths = videos.flat().map((video) => ({ params: { id: video?.id } }));
-  console.log(paths);
   return { paths, fallback: true };
 };
 
