@@ -1,5 +1,5 @@
 import { Container, VStack } from '@chakra-ui/react';
-import type { GetServerSideProps, NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import Banner from '../components/banner';
 import CardsSection from '../components/cardsSection';
@@ -43,11 +43,13 @@ const Home: NextPage<Props> = ({
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const disneyVideos = await fetchByQuery('disney trailer');
   const travelVideos = await fetchByQuery('travel');
   const productivityVideos = await fetchByQuery('productivity');
   const popularVideos = await fetchPopular();
+
+  const oneDayInSeconds = 60 * 60 * 24;
 
   return {
     props: {
@@ -56,5 +58,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
       productivityVideos,
       popularVideos,
     },
+    revalidate: oneDayInSeconds,
   };
 };
