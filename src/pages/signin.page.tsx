@@ -16,6 +16,7 @@ import { FormEvent, useEffect, useState } from 'react';
 import isEmail from 'isemail';
 import { useRouter } from 'next/router';
 import { magic } from '../lib/magic';
+import axios from 'axios';
 
 type Props = {};
 
@@ -49,9 +50,9 @@ const SignInPage: NextPage<Props> = () => {
         email,
       });
 
-      if (didToken) {
-        router.push('/');
-      }
+      await axios.post('api/signin', { didToken });
+
+      router.push('/');
     } catch {
       setIsLoading(false);
     }
