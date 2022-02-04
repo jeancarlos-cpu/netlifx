@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Magic } from '@magic-sdk/admin';
 import { setCookie } from 'nookies';
 import { initializeClient } from '../../lib/urql-client';
 import JwtSign from '../../lib/jwt-sign';
+import { magicAdmin } from '../../lib/magic';
 
 const CREATE_USER = `
 mutation ($input: users_insert_input!) {
@@ -32,7 +32,6 @@ export default async function handler(
       return res.status(404).send('Invalid credentials');
     }
 
-    const magicAdmin = new Magic(process.env.MAGIC_SECRET_KEY);
     const { issuer, email } = await magicAdmin.users.getMetadataByToken(
       didToken,
     );
