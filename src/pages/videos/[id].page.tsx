@@ -97,58 +97,53 @@ const VideoPage: FC<Props> = ({ video }) => {
   }, [video.id]);
 
   return (
-    <>
+    <VStack maxW="container.md" height="100vh" mx="auto" py="4">
       <Head>
         <title>{video?.title}</title>
       </Head>
-      <NavBar />
-      <VStack maxW="container.md" height="100vh" mx="auto" py="4">
-        <VStack pt="20" w="full">
-          <iframe
-            id="player"
-            width="100%"
-            height="360"
-            src={`http://www.youtube.com/embed/${video?.id}?enablejsapi=1&origin=http://example.com`}
-            frameBorder="0"
-          />
-        </VStack>
-        <HStack overflow="scroll" align="start" pt={6} spacing={6}>
-          <VStack align="start" flexBasis="75%">
-            <Text color="gray.400">
-              {formatDateDistance(video?.publishedAt)}
-            </Text>
-            <Heading>{video?.title}</Heading>
-            <Text color="gray.300">{video?.description}</Text>
-          </VStack>
-          <VStack align="start" flexBasis="25%" spacing={6}>
-            <HStack spacing="8">
-              <StatusButton
-                variant="like"
-                isLoading={state?.isLoading}
-                onClick={() => asyncDispatch({ type: 'LIKE' })}
-                selected={!!state?.like}
-              />
-              <StatusButton
-                variant="dislike"
-                isLoading={state?.isLoading}
-                onClick={() => asyncDispatch({ type: 'DISLIKE' })}
-                selected={!!state?.dislike}
-              />
-            </HStack>
-            <Text fontSize="lg" color="gray.400">
-              Channel:
-              <chakra.span color="white">{` ${video?.channelTitle}`}</chakra.span>
-            </Text>
-            <Text fontSize="lg" color="gray.400">
-              Views:
-              <chakra.span color="white">{` ${formatNumber(
-                Number(video?.viewCount),
-              )}`}</chakra.span>
-            </Text>
-          </VStack>
-        </HStack>
+      <VStack pt="20" w="full">
+        <iframe
+          id="player"
+          width="100%"
+          height="360"
+          src={`http://www.youtube.com/embed/${video?.id}?enablejsapi=1&origin=http://example.com`}
+          frameBorder="0"
+        />
       </VStack>
-    </>
+      <HStack overflow="scroll" align="start" pt={6} spacing={6}>
+        <VStack align="start" flexBasis="75%">
+          <Text color="gray.400">{formatDateDistance(video?.publishedAt)}</Text>
+          <Heading>{video?.title}</Heading>
+          <Text color="gray.300">{video?.description}</Text>
+        </VStack>
+        <VStack align="start" flexBasis="25%" spacing={6}>
+          <HStack spacing="8">
+            <StatusButton
+              variant="like"
+              isLoading={state?.isLoading}
+              onClick={() => asyncDispatch({ type: 'LIKE' })}
+              selected={!!state?.like}
+            />
+            <StatusButton
+              variant="dislike"
+              isLoading={state?.isLoading}
+              onClick={() => asyncDispatch({ type: 'DISLIKE' })}
+              selected={!!state?.dislike}
+            />
+          </HStack>
+          <Text fontSize="lg" color="gray.400">
+            Channel:
+            <chakra.span color="white">{` ${video?.channelTitle}`}</chakra.span>
+          </Text>
+          <Text fontSize="lg" color="gray.400">
+            Views:
+            <chakra.span color="white">{` ${formatNumber(
+              Number(video?.viewCount),
+            )}`}</chakra.span>
+          </Text>
+        </VStack>
+      </HStack>
+    </VStack>
   );
 };
 

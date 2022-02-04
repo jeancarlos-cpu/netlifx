@@ -23,7 +23,6 @@ const Home: NextPage<Props> = ({
       <Head>
         <title>Netflix</title>
       </Head>
-      <NavBar />
       <Banner
         title="Clifford, the red dog "
         subTitle="a very red dog"
