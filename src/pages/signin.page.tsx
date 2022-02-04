@@ -44,6 +44,7 @@ const SignInPage: NextPage<Props> = () => {
       setIsLoading(true);
       if (!isEmail.validate(email)) {
         setIsInvalid(true);
+        setIsLoading(false);
         return;
       }
       const didToken = await magic?.auth.loginWithMagicLink({
@@ -116,6 +117,7 @@ const SignInPage: NextPage<Props> = () => {
           <FormLabel>Email</FormLabel>
           <Input
             type="email"
+            disabled={isLoading}
             errorBorderColor="yellow.400"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
