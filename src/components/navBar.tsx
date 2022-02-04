@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Dropdown from './dropdown';
 import { IoIosArrowDown } from 'react-icons/io';
 import { magic } from '../lib/magic';
+import api from '../services/api';
 
 const NavBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -39,7 +40,7 @@ const NavBar = () => {
 
   async function handleSignOut() {
     try {
-      await magic?.user?.logout();
+      await api.post('/signout');
     } catch {}
   }
 
