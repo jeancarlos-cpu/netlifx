@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 
-export function verifyJwt(token: string): string | null {
+export function verifyJwt(token: string) {
   if (!token) {
-    return null;
+    return;
   }
 
   const decoded: any = jwt.verify(
