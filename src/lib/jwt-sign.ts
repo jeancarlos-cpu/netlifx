@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 
 export default function JwtSignToken(issuer: string) {
-  console.log(process.env.JWT_SECRET);
   const token = jwt.sign(
     {
       issuer,
