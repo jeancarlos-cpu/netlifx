@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { Magic } from '@magic-sdk/admin';
 import { setCookie } from 'nookies';
 import { initializeClient } from '../../lib/urql-client';
-import JwtSignToken from '../../lib/jwt-sign-token';
+import JwtSign from '../../lib/jwt-sign';
 
 const CREATE_USER = `
 mutation ($input: users_insert_input!) {
@@ -51,7 +51,7 @@ export default async function handler(
         .toPromise();
     }
 
-    const token = JwtSignToken(issuer);
+    const token = JwtSign(issuer);
 
     setCookie({ res }, 'token', token, {
       maxAge: sevenDaysInSeconds,
