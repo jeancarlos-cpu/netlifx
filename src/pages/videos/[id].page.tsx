@@ -1,13 +1,14 @@
 import { Heading, HStack, Text, VStack, chakra } from '@chakra-ui/react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
-import { FC, useReducer } from 'react';
+import { FC, useEffect, useLayoutEffect, useReducer } from 'react';
 import NavBar from '../../components/navBar';
 import {
   fetchById,
   fetchByQuery,
   fetchPopular,
 } from '../../lib/videos.reducer';
+import api from '../../services/api';
 import formatDateDistance from '../../utils/formatDateDistance';
 import formatNumber from '../../utils/formatNumber';
 import type serializeVideosData from '../../utils/serializeVideosData';
@@ -18,44 +19,82 @@ type Props = {
 };
 
 type Action = {
-  type: 'like' | 'dislike' | 'default';
+  type: 'LIKE' | 'DISLIKE' | 'LOADED';
 };
 
 type StatusState = {
   like: boolean;
   dislike: boolean;
+  isLoading: boolean;
 };
 
 const initialState: StatusState = {
+  isLoading: true,
   like: false,
   dislike: false,
 };
 
 function reducer(state = initialState, action: Action) {
   switch (action.type) {
-    case 'like':
+    case 'LOADED':
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case 'LIKE':
       return {
         ...state,
         like: !state.like,
         dislike: false,
       };
-    case 'dislike':
+    case 'DISLIKE':
       return {
         ...state,
         like: false,
         dislike: !state.dislike,
       };
-    case 'default':
-      return {
-        ...initialState,
-      };
     default:
-      break;
+      return state;
   }
 }
 
 const VideoPage: FC<Props> = ({ video }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  function asyncDispatchMiddleware(dispatch: Function) {
+    return async function (action: Action) {
+      switch (action.type) {
+        case 'LIKE': {
+          const favourited = !state?.like ? true : null;
+          dispatch(action);
+          await api.post(`/stats/${video.id}`, { favourited: favourited });
+          return;
+        }
+        case 'DISLIKE': {
+          const favourited = !state?.dislike ? false : null;
+          dispatch(action);
+          await api.post(`/stats/${video.id}`, { favourited: favourited });
+          return;
+        }
+        default:
+          return dispatch(action);
+      }
+    };
+  }
+
+  const asyncDispatch = asyncDispatchMiddleware(dispatch);
+
+  useEffect(() => {
+    async function fetchStats() {
+      const { data: stats } = await api.get(`/stats/${video.id}`);
+      dispatch({ type: 'LOADED' });
+      if (stats.favourited) {
+        dispatch({ type: 'LIKE' });
+      } else if (stats.favourited === false) {
+        dispatch({ type: 'DISLIKE' });
+      }
+    }
+    fetchStats();
+  }, [video.id]);
 
   return (
     <>
@@ -85,12 +124,14 @@ const VideoPage: FC<Props> = ({ video }) => {
             <HStack spacing="8">
               <StatusButton
                 variant="like"
-                onClick={() => dispatch({ type: 'like' })}
+                isLoading={state?.isLoading}
+                onClick={() => asyncDispatch({ type: 'LIKE' })}
                 selected={!!state?.like}
               />
               <StatusButton
                 variant="dislike"
-                onClick={() => dispatch({ type: 'dislike' })}
+                isLoading={state?.isLoading}
+                onClick={() => asyncDispatch({ type: 'DISLIKE' })}
                 selected={!!state?.dislike}
               />
             </HStack>
