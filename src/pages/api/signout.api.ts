@@ -20,6 +20,7 @@ export default async function handler(
 
     await magicAdmin.users.logoutByIssuer(issuer);
     destroyCookie({ res }, 'token', { maxAge: -1, path: '/' });
+    destroyCookie({ res }, 'user.email', { maxAge: -1, path: '/' });
     res.writeHead(302, { Location: '/login' });
     res.end();
   } catch (e) {

@@ -3,8 +3,8 @@ import NextLink from 'next/link';
 import { useEffect, useState } from 'react';
 import Dropdown from './dropdown';
 import { IoIosArrowDown } from 'react-icons/io';
-import { magic } from '../lib/magic';
 import api from '../services/api';
+import { parseCookies } from 'nookies';
 
 const NavBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -15,8 +15,8 @@ const NavBar = () => {
     window.addEventListener('scroll', handleScroll);
     async function getEmail() {
       try {
-        const response = await magic?.user?.getMetadata();
-        setEmail(String(response?.email));
+        const email = parseCookies()['user.email'];
+        setEmail(email || 'Guest');
       } catch {
         setEmail('Guest');
       }

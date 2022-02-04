@@ -59,6 +59,13 @@ export default async function handler(
       path: '/',
     });
 
+    setCookie({ res }, 'user.email', String(email), {
+      maxAge: sevenDaysInSeconds,
+      expires: new Date(Date.now() + sevenDaysInSeconds * 1000),
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
+    });
+
     res.status(200).send('ok');
   } catch {
     res.status(500).send('Internal server error');
