@@ -37,6 +37,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-only-warn": "^1.0.3",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "git-commit-msg-linter": "^4.0.7",
@@ -52,12 +53,14 @@
       "plugin:prettier/recommended"
     ],
     "plugins": [
-      "prettier"
+      "prettier",
+      "only-warn"
     ],
     "rules": {
       "no-unused-vars": "off",
       "no-use-before-define": "off",
-      "no-undef": "off"
+      "no-undef": "off",
+      "no-console": "error"
     }
   },
   "prettier": {
@@ -72,7 +75,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "eslint --fix"
+      "eslint --fix --max-warnings=0"
     ]
   }
 }

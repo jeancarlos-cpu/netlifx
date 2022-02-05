@@ -51,7 +51,6 @@ export default async function handler(
         break;
     }
   } catch (e) {
-    console.log(e);
     res.status(404).send('Unable to fetch video stats.');
   }
 }
@@ -108,8 +107,6 @@ async function update({ favourited, id }: Partial<Stats>) {
       where: { id },
     })
     .toPromise();
-
-  console.log(data);
 
   const stats = data?.update_stats_by_pk;
 
