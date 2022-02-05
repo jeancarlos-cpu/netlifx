@@ -1,10 +1,9 @@
-import { Container, VStack } from '@chakra-ui/react';
+import { Container, Skeleton, VStack } from '@chakra-ui/react';
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import Banner from '../components/banner';
 import CardsSection from '../components/cardsSection';
-import NavBar from '../components/navBar';
 import { fetchByQuery, fetchPopular } from '../lib/videos.reducer';
 import api from '../services/api';
 import serializeVideosData from '../utils/serializeVideosData';
@@ -24,6 +23,7 @@ const Home: NextPage<Props> = ({
   productivityVideos,
   popularVideos,
 }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [watchItAgainVideos, setWatchItAgainVideos] =
     useState<Pick<Videos[0], 'id' | 'imgUrl'>[]>();
 
@@ -35,6 +35,7 @@ const Home: NextPage<Props> = ({
         imgUrl: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
       }));
       setWatchItAgainVideos(videos);
+      setIsLoading(false);
     }
     fetchWatchItAgain();
   }, []);
@@ -52,8 +53,9 @@ const Home: NextPage<Props> = ({
       <Container maxWidth="container.xl" paddingY={8}>
         <VStack spacing={4}>
           <CardsSection title="Disney" size="large" videos={disneyVideos} />
-          {watchItAgainVideos?.length && (
+          {(watchItAgainVideos?.length || isLoading) && (
             <CardsSection
+              isLoading={isLoading}
               title="Watch it again"
               size="small"
               videos={watchItAgainVideos}
