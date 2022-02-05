@@ -13,6 +13,7 @@ import isEmail from 'isemail';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useState } from 'react';
 
@@ -88,16 +89,19 @@ const SignInPage: NextPage<Props> = () => {
           objectPosition="center"
         />
       </Box>
-      <Heading
-        fontSize="5xl"
-        color="red.600"
-        position="absolute"
-        top="0"
-        left="0"
-        p="6"
-      >
-        NETFLIX
-      </Heading>
+      <NextLink href="/" passHref>
+        <Heading
+          as="a"
+          fontSize="5xl"
+          color="red.600"
+          position="absolute"
+          top="0"
+          left="0"
+          p="6"
+        >
+          NETFLIX
+        </Heading>
+      </NextLink>
       <VStack
         as="form"
         onSubmit={handleSubmit}

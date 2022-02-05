@@ -3,11 +3,12 @@ import NextLink from 'next/link';
 import React from 'react';
 
 type Props = {
+  message: string;
   isOpen: boolean;
   handleSignOut: () => void;
 };
 
-const Dropdown: React.FC<Props> = ({ isOpen, handleSignOut }) => {
+const Dropdown: React.FC<Props> = ({ isOpen, message, handleSignOut }) => {
   if (!isOpen) {
     return <VStack display="none" />;
   }
@@ -35,7 +36,7 @@ const Dropdown: React.FC<Props> = ({ isOpen, handleSignOut }) => {
     >
       {isOpen && (
         <NextLink href="/signin" passHref>
-          <Link onClick={handleSignOut}>Sign out</Link>
+          <Link onClick={handleSignOut}>{message}</Link>
         </NextLink>
       )}
     </VStack>

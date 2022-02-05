@@ -58,11 +58,10 @@ const NavBar = () => {
       bg={navBarBgColor}
     >
       <HStack gap={4}>
-        <Heading marginRight={4} color="red.600">
-          NETFLIX
-        </Heading>
         <NextLink href="/" passHref>
-          <Link>Home</Link>
+          <Heading as="a" marginRight={4} color="red.600">
+            NETFLIX
+          </Heading>
         </NextLink>
         <NextLink href="/my-list" passHref>
           <Link>My List</Link>
@@ -77,7 +76,11 @@ const NavBar = () => {
         >
           {email}
         </Button>
-        <Dropdown isOpen={isDropdownOpen} handleSignOut={handleSignOut} />
+        <Dropdown
+          message={email === 'Guest' ? 'Sign In' : 'Sign Out'}
+          isOpen={isDropdownOpen}
+          handleSignOut={handleSignOut}
+        />
       </Box>
     </HStack>
   );
