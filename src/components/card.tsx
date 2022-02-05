@@ -8,11 +8,19 @@ type Props = {
   id: string;
   imgUrl: string;
   size: CardSize;
+  hasMotion?: boolean;
 };
 
-const Card: React.FC<Props> = ({ id, imgUrl, size = 'medium', ...props }) => {
+const Card: React.FC<Props> = ({
+  id,
+  imgUrl,
+  size = 'medium',
+  hasMotion = true,
+  ...props
+}) => {
   const styles = useStyleConfig('Card', { size });
   const MotionBox = motion<BoxProps>(Box);
+  const shouldScale = hasMotion && { whileHover: { scale: 1.05 } };
 
   return (
     <MotionBox
@@ -20,9 +28,9 @@ const Card: React.FC<Props> = ({ id, imgUrl, size = 'medium', ...props }) => {
       cursor="pointer"
       position="relative"
       rounded="sm"
-      __css={styles}
-      whileHover={{ scale: 1.05 }}
       overflow="hidden"
+      __css={styles}
+      {...shouldScale}
       {...props}
     >
       <Image
