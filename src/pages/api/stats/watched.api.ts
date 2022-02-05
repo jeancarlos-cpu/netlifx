@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { initializeClient } from '../../../lib/urql-client';
-import { verifyJwt } from '../../../lib/verify-jwt';
+
+import { initializeClient } from 'lib/urql-client';
+import { verifyJwt } from 'lib/verify-jwt';
 
 const QUERY_WATCHED_VIDEOS = `
 query watchedVideos($userId: String!) {

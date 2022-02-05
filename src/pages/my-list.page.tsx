@@ -1,11 +1,12 @@
-import Head from 'next/head';
-
 import { Container } from '@chakra-ui/react';
 import { GetServerSideProps, NextPage } from 'next';
-import CardsSection from '../components/cardsSection';
-import { initializeClient } from '../lib/urql-client';
+import Head from 'next/head';
+
 import nookies from 'nookies';
-import { verifyJwt } from '../lib/verify-jwt';
+
+import CardsSection from 'components/cardsSection';
+import { initializeClient } from 'lib/urql-client';
+import { verifyJwt } from 'lib/verify-jwt';
 
 type Props = {
   myListVideos: {

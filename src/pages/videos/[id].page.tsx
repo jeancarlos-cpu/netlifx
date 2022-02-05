@@ -1,7 +1,8 @@
 import { Heading, HStack, Text, VStack, chakra } from '@chakra-ui/react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
-import { FC, useEffect, useLayoutEffect, useReducer } from 'react';
+import { FC, useEffect, useReducer } from 'react';
+
 import {
   fetchById,
   fetchByQuery,

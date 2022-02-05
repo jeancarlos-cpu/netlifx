@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { destroyCookie } from 'nookies';
-import { magicAdmin } from '../../lib/magic';
-import { verifyJwt } from '../../lib/verify-jwt';
+
+import { magicAdmin } from 'lib/magic';
+import { verifyJwt } from 'lib/verify-jwt';
 
 export default async function handler(
   req: NextApiRequest,

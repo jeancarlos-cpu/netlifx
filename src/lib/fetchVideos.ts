@@ -1,5 +1,7 @@
 import axios from 'axios';
-import serializeVideosData from '../utils/serializeVideosData';
+
+import serializeVideosData from 'utils/serializeVideosData';
+
 import fakeData from '../../videos.dev.json';
 
 export default async function fetchVideos(params: string) {

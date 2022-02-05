@@ -1,7 +1,8 @@
 /* eslint-disable camelcase */
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { initializeClient } from '../../../lib/urql-client';
-import { verifyJwt } from '../../../lib/verify-jwt';
+
+import { initializeClient } from 'lib/urql-client';
+import { verifyJwt } from 'lib/verify-jwt';
 
 export default async function handler(
   req: NextApiRequest,

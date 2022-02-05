@@ -9,14 +9,15 @@ import {
   Button,
   FormErrorMessage,
 } from '@chakra-ui/react';
+import isEmail from 'isemail';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { FormEvent, useEffect, useState } from 'react';
-import isEmail from 'isemail';
 import { useRouter } from 'next/router';
-import { magic } from '../lib/magic';
-import api from '../services/api';
+import { FormEvent, useEffect, useState } from 'react';
+
+import { magic } from 'lib/magic';
+import api from 'services/api';
 
 type Props = {};
 

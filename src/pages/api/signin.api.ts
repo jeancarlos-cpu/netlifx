@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { setCookie } from 'nookies';
-import { initializeClient } from '../../lib/urql-client';
-import JwtSign from '../../lib/jwt-sign';
-import { magicAdmin } from '../../lib/magic';
+
+import JwtSign from 'lib/jwt-sign';
+import { magicAdmin } from 'lib/magic';
+import { initializeClient } from 'lib/urql-client';
 
 const CREATE_USER = `
 mutation ($input: users_insert_input!) {

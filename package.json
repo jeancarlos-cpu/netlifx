@@ -50,7 +50,10 @@
     "extends": [
       "next/core-web-vitals",
       "standard",
-      "plugin:prettier/recommended"
+      "plugin:prettier/recommended",
+      "plugin:import/errors",
+      "plugin:import/warnings",
+      "plugin:import/typescript"
     ],
     "plugins": [
       "prettier",
@@ -60,7 +63,17 @@
       "no-unused-vars": "off",
       "no-use-before-define": "off",
       "no-undef": "off",
-      "no-console": "error"
+      "no-console": "error",
+      "import/order": [
+        "error",
+        {
+          "groups": ["builtin", "external", "internal", ["index", "sibling", "parent", "object"]],
+          "pathGroupsExcludedImportTypes": ["builtin"],
+          "pathGroups": [{ "pattern": "@material-ui/**", "group": "external", "position": "after" }],
+          "newlines-between": "always-and-inside-groups",
+          "alphabetize": { "order": "asc", "caseInsensitive": true }
+        }
+      ]
     }
   },
   "prettier": {

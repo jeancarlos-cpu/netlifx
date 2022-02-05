@@ -1,10 +1,13 @@
 import { Box, Button, Heading, HStack, Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import { useEffect, useState } from 'react';
-import Dropdown from './dropdown';
-import { IoIosArrowDown } from 'react-icons/io';
-import api from '../services/api';
 import { parseCookies } from 'nookies';
+import { useEffect, useState } from 'react';
+
+import { IoIosArrowDown } from 'react-icons/io';
+
+import api from 'services/api';
+
+import Dropdown from './dropdown';
 
 const NavBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

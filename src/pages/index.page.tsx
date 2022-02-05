@@ -1,14 +1,15 @@
-import { Container, Skeleton, VStack } from '@chakra-ui/react';
+import { Container, VStack } from '@chakra-ui/react';
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import Banner from '../components/banner';
-import CardsSection from '../components/cardsSection';
-import { fetchByQuery, fetchPopular } from '../lib/videos.reducer';
-import api from '../services/api';
-import serializeVideosData from '../utils/serializeVideosData';
-type Videos = ReturnType<typeof serializeVideosData>;
 
+import Banner from 'components/banner';
+import CardsSection from 'components/cardsSection';
+import { fetchByQuery, fetchPopular } from 'lib/videos.reducer';
+import api from 'services/api';
+import serializeVideosData from 'utils/serializeVideosData';
+
+type Videos = ReturnType<typeof serializeVideosData>;
 type Props = {
   [key: string]: Videos;
 };

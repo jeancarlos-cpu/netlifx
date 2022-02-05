@@ -1,5 +1,5 @@
-import React from 'react';
 import { Button, Heading, HStack, Text, VStack } from '@chakra-ui/react';
+import React from 'react';
 import { FaPlay } from 'react-icons/fa';
 
 type Props = {

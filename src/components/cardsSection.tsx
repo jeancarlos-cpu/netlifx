@@ -2,15 +2,16 @@ import {
   Flex,
   FlexProps,
   Heading,
-  HStack,
   Skeleton,
   useStyleConfig,
   VStack,
 } from '@chakra-ui/react';
-import { FC } from 'react';
-import { CardSize } from '../styles/components/card';
-import Card from './card';
 import Link from 'next/link';
+import { FC } from 'react';
+
+import { CardSize } from 'styles/components/card';
+
+import Card from './card';
 
 type Video = {
   id: string;

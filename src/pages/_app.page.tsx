@@ -1,9 +1,10 @@
-import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
-import { theme } from '../styles/theme';
-import NextNprogress from 'nextjs-progressbar';
-import NavBar from '../components/navBar';
+import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
+import NextNprogress from 'nextjs-progressbar';
+
+import NavBar from 'components/navBar';
+import { theme } from 'styles/theme';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();

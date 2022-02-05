@@ -1,5 +1,5 @@
-import { Magic } from 'magic-sdk';
 import { Magic as MagicAdmin } from '@magic-sdk/admin';
+import { Magic } from 'magic-sdk';
 
 const createMagicClient = (key: string) => {
   return typeof window === 'undefined' ? null : new Magic(key);
