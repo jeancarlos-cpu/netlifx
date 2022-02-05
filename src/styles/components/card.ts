@@ -1,6 +1,6 @@
 import { BoxProps, ComponentSingleStyleConfig } from '@chakra-ui/react';
 
-export type CardSize = 'large' | 'medium' | 'small';
+export type CardSize = 'large' | 'medium' | 'small' | 'verysmall';
 
 interface ICard extends ComponentSingleStyleConfig {
   sizes: {
@@ -27,6 +27,12 @@ export const Card: ICard = {
       minWidth: 300,
       height: 170,
       minHeight: 170,
+    },
+    verysmall: {
+      width: 280,
+      minWidth: 280,
+      height: 190,
+      minHeight: 190,
     },
   },
   defaultProps: {
