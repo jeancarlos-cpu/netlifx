@@ -29,13 +29,17 @@ const Home: NextPage<Props> = ({
 
   useEffect(() => {
     async function fetchWatchItAgain() {
-      const { data: stats } = await api.get<Stats[]>('/stats/watched');
-      const videos = stats.map(({ videoId }) => ({
-        id: videoId,
-        imgUrl: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
-      }));
-      setWatchItAgainVideos(videos);
-      setIsLoading(false);
+      try {
+        const { data: stats } = await api.get<Stats[]>('/stats/watched');
+        const videos = stats.map(({ videoId }) => ({
+          id: videoId,
+          imgUrl: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+        }));
+        setWatchItAgainVideos(videos);
+      } catch {
+      } finally {
+        setIsLoading(false);
+      }
     }
     fetchWatchItAgain();
   }, []);
@@ -46,21 +50,19 @@ const Home: NextPage<Props> = ({
         <title>Netflix</title>
       </Head>
       <Banner
-        title="Clifford, the red dog "
+        title="Clifford, the red dog"
         subTitle="a very red dog"
         imgUrl="/static/clifford.webp"
       />
       <Container maxWidth="container.xl" paddingY={8}>
         <VStack spacing={4}>
           <CardsSection title="Disney" size="large" videos={disneyVideos} />
-          {(watchItAgainVideos?.length || isLoading) && (
-            <CardsSection
-              isLoading={isLoading}
-              title="Watch it again"
-              size="small"
-              videos={watchItAgainVideos}
-            />
-          )}
+          <CardsSection
+            isLoading={isLoading}
+            title="Watch it again"
+            size="small"
+            videos={watchItAgainVideos}
+          />
           <CardsSection title="Travel" size="small" videos={travelVideos} />
           <CardsSection title="Productivity" videos={productivityVideos} />
           <CardsSection title="Popular" size="small" videos={popularVideos} />
