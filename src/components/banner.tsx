@@ -42,11 +42,11 @@ const Banner: React.FC<Props> = ({ title, subTitle, imgUrl }) => {
           fontSize="6xl"
           fontWeight="light"
           maxWidth={500}
-          css={{ '-webkit-text-stroke': '1px #000' }}
+          css={{ WebkitTextStroke: '1px #000' }}
         >
           {title}
         </Heading>
-        <Text fontSize="2xl" css={{ '-webkit-text-stroke': '0.5px #000' }}>
+        <Text fontSize="2xl" css={{ WebkitTextStroke: '0.5px #000' }}>
           {subTitle}
         </Text>
         <Button
