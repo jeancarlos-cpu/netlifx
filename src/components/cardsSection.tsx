@@ -56,16 +56,9 @@ const CardsSection: FC<Props> = ({
               />
             ))
           : videos?.map(({ imgUrl, id }) => (
-              <>
-                <Link key={id} href={`/videos/${id}`} passHref>
-                  <Card
-                    id={id}
-                    size={size}
-                    imgUrl={imgUrl}
-                    hasMotion={motion}
-                  />
-                </Link>
-              </>
+              <Link key={id} href={`/videos/${id}`} passHref>
+                <Card id={id} size={size} imgUrl={imgUrl} hasMotion={motion} />
+              </Link>
             ))}
       </Flex>
     </VStack>
