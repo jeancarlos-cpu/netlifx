@@ -53,8 +53,8 @@ const SignInPage: NextPage<Props> = () => {
       });
 
       await api.post('/signin', { didToken });
-
-      router.push('/');
+      const { next } = router.query;
+      router.push(next ? String(next) : '/');
     } catch {
       setIsLoading(false);
     }

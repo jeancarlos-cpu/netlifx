@@ -70,7 +70,7 @@ const VideoPage: FC<Props> = ({ video }) => {
           try {
             await api.post(`/stats/${video.id}`, { favourited: favourited });
           } catch {
-            router.push('/signin');
+            router.push(`/signin?next=${router.asPath}`);
           }
           dispatch(action);
           return;
@@ -80,7 +80,7 @@ const VideoPage: FC<Props> = ({ video }) => {
           try {
             await api.post(`/stats/${video.id}`, { favourited: favourited });
           } catch {
-            router.push('/signin');
+            router.push(`/signin?next=${router.asPath}`);
           }
           dispatch(action);
           return;

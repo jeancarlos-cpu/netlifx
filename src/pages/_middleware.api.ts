@@ -10,6 +10,6 @@ export async function middleware(req: NextRequest) {
   }
 
   if (!token && pathname === '/my-list') {
-    return NextResponse.redirect('/signin');
+    return NextResponse.redirect('/signin?next=/my-list');
   }
 }
