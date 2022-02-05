@@ -1,15 +1,21 @@
 import { Container, VStack } from '@chakra-ui/react';
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
 import Banner from '../components/banner';
 import CardsSection from '../components/cardsSection';
 import NavBar from '../components/navBar';
 import { fetchByQuery, fetchPopular } from '../lib/videos.reducer';
+import api from '../services/api';
 import serializeVideosData from '../utils/serializeVideosData';
 type Videos = ReturnType<typeof serializeVideosData>;
 
 type Props = {
   [key: string]: Videos;
+};
+
+type Stats = {
+  videoId: string;
 };
 
 const Home: NextPage<Props> = ({
@@ -18,6 +24,21 @@ const Home: NextPage<Props> = ({
   productivityVideos,
   popularVideos,
 }) => {
+  const [watchItAgainVideos, setWatchItAgainVideos] =
+    useState<Pick<Videos[0], 'id' | 'imgUrl'>[]>();
+
+  useEffect(() => {
+    async function fetchWatchItAgain() {
+      const { data: stats } = await api.get<Stats[]>('/stats/watched');
+      const videos = stats.map(({ videoId }) => ({
+        id: videoId,
+        imgUrl: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+      }));
+      setWatchItAgainVideos(videos);
+    }
+    fetchWatchItAgain();
+  }, []);
+
   return (
     <>
       <Head>
@@ -31,6 +52,13 @@ const Home: NextPage<Props> = ({
       <Container maxWidth="container.xl" paddingY={8}>
         <VStack spacing={4}>
           <CardsSection title="Disney" size="large" videos={disneyVideos} />
+          {watchItAgainVideos?.length && (
+            <CardsSection
+              title="Watch it again"
+              size="small"
+              videos={watchItAgainVideos}
+            />
+          )}
           <CardsSection title="Travel" size="small" videos={travelVideos} />
           <CardsSection title="Productivity" videos={productivityVideos} />
           <CardsSection title="Popular" size="small" videos={popularVideos} />

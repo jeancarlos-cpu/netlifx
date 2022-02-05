@@ -2,15 +2,17 @@ import { Heading, HStack, VStack } from '@chakra-ui/react';
 import { FC } from 'react';
 import { CardSize } from '../styles/components/card';
 import Card from './card';
-import type serializeVideosData from '../utils/serializeVideosData';
 import Link from 'next/link';
 
-type Videos = ReturnType<typeof serializeVideosData>;
+type Video = {
+  id: string;
+  imgUrl: string;
+};
 
 type Props = {
   title: string;
   size?: CardSize;
-  videos?: Videos;
+  videos?: Video[];
 };
 
 const CardsSection: FC<Props> = ({ title, size = 'medium', videos }) => {
