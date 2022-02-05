@@ -2,7 +2,6 @@ import { Heading, HStack, Text, VStack, chakra } from '@chakra-ui/react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { FC, useEffect, useLayoutEffect, useReducer } from 'react';
-import NavBar from '../../components/navBar';
 import {
   fetchById,
   fetchByQuery,
@@ -94,7 +93,7 @@ const VideoPage: FC<Props> = ({ video }) => {
       }
     }
     fetchStats();
-  }, [video.id]);
+  }, [video?.id]);
 
   return (
     <VStack maxW="container.md" height="100vh" mx="auto" py="4">
