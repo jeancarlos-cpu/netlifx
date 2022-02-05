@@ -4,15 +4,12 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useReducer } from 'react';
 
-import {
-  fetchById,
-  fetchByQuery,
-  fetchPopular,
-} from '../../lib/videos.reducer';
-import api from '../../services/api';
-import formatDateDistance from '../../utils/formatDateDistance';
-import formatNumber from '../../utils/formatNumber';
-import type serializeVideosData from '../../utils/serializeVideosData';
+import { fetchById, fetchByQuery, fetchPopular } from 'lib/videos.reducer';
+import api from 'services/api';
+import formatDateDistance from 'utils/formatDateDistance';
+import formatNumber from 'utils/formatNumber';
+import type serializeVideosData from 'utils/serializeVideosData';
+
 import StatusButton from './components/statusButton';
 
 type Props = {
@@ -67,22 +64,22 @@ const VideoPage: FC<Props> = ({ video }) => {
       switch (action.type) {
         case 'LIKE': {
           const favourited = !state?.like ? true : null;
+          dispatch(action);
           try {
             await api.post(`/stats/${video.id}`, { favourited: favourited });
           } catch {
             router.push(`/signin?next=${router.asPath}`);
           }
-          dispatch(action);
           return;
         }
         case 'DISLIKE': {
           const favourited = !state?.dislike ? false : null;
+          dispatch(action);
           try {
             await api.post(`/stats/${video.id}`, { favourited: favourited });
           } catch {
             router.push(`/signin?next=${router.asPath}`);
           }
-          dispatch(action);
           return;
         }
         default:

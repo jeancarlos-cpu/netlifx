@@ -51,7 +51,7 @@ export default async function handler(
       default:
         break;
     }
-  } catch (e) {
+  } catch {
     res.status(404).send('Unable to fetch video stats.');
   }
 }
@@ -86,12 +86,12 @@ async function create({
 }: Partial<Stats>) {
   const client = initializeClient();
   const { data } = await client
-    .mutation<{ stats: Stats }>(CREATE_STATS, {
+    .mutation<{ insert_stats_one: Stats }>(CREATE_STATS, {
       input: { videoId, userId, favourited, watched },
     })
     .toPromise();
 
-  const stats = data?.stats;
+  const stats = data?.insert_stats_one;
 
   if (!stats) {
     throw new Error();
