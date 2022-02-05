@@ -1,6 +1,7 @@
 import { Heading, HStack, Text, VStack, chakra } from '@chakra-ui/react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { FC, useEffect, useReducer } from 'react';
 
 import {
@@ -60,19 +61,28 @@ function reducer(state = initialState, action: Action) {
 
 const VideoPage: FC<Props> = ({ video }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const router = useRouter();
   function asyncDispatchMiddleware(dispatch: Function) {
     return async function (action: Action) {
       switch (action.type) {
         case 'LIKE': {
           const favourited = !state?.like ? true : null;
+          try {
+            await api.post(`/stats/${video.id}`, { favourited: favourited });
+          } catch {
+            router.push('/signin');
+          }
           dispatch(action);
-          await api.post(`/stats/${video.id}`, { favourited: favourited });
           return;
         }
         case 'DISLIKE': {
           const favourited = !state?.dislike ? false : null;
+          try {
+            await api.post(`/stats/${video.id}`, { favourited: favourited });
+          } catch {
+            router.push('/signin');
+          }
           dispatch(action);
-          await api.post(`/stats/${video.id}`, { favourited: favourited });
           return;
         }
         default:
@@ -85,12 +95,16 @@ const VideoPage: FC<Props> = ({ video }) => {
 
   useEffect(() => {
     async function fetchStats() {
-      const { data: stats } = await api.get(`/stats/${video.id}`);
-      dispatch({ type: 'LOADED' });
-      if (stats.favourited) {
-        dispatch({ type: 'LIKE' });
-      } else if (stats.favourited === false) {
-        dispatch({ type: 'DISLIKE' });
+      try {
+        const { data: stats } = await api.get(`/stats/${video.id}`);
+        if (stats.favourited) {
+          dispatch({ type: 'LIKE' });
+        } else if (stats.favourited === false) {
+          dispatch({ type: 'DISLIKE' });
+        }
+      } catch {
+      } finally {
+        dispatch({ type: 'LOADED' });
       }
     }
     fetchStats();
