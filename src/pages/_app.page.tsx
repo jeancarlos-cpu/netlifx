@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   return (
     <ChakraProvider theme={theme}>
-      <NextNprogress color="#E53E3E" />
+      <NextNprogress color="#E53E3E" options={{ showSpinner: false }} />
       {router.pathname !== '/signin' && <NavBar />}
       <Component {...pageProps} />
     </ChakraProvider>
